@@ -3406,7 +3406,7 @@ class AELoader(type):
 
     @staticmethod
     def load(modname, classname, nodename):
-        mod = __import__(modname, globals(), locals(), [classname], -1)
+        mod = __import__(modname, globals(), locals(), [classname])
         try:
             cls = getattr(mod, classname)
             cls(nodename)
@@ -3524,7 +3524,7 @@ class AETemplate(with_metaclass(AELoader, object)):
             replaceFunc = pymel.tools.py2mel.py2melProc(
                 replaceFunc, procName=name, argTypes=['string'] * len(attrs))
         args = (newFunc, replaceFunc) + attrs
-        cmds.editorTemplate(callCustom=1, *args)
+        cmds.editorTemplate(*args, callCustom=1)
 
     def suppress(self, control):
         cmds.editorTemplate(suppress=control)
